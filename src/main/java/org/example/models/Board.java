@@ -1,5 +1,6 @@
 package org.example.models;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Board {
@@ -10,6 +11,7 @@ public class Board {
     public Board(int dimension) {
         this.dimension = dimension;
         this.cellCount = dimension * dimension;
+        this.boardEntityMap = new HashMap<>();
 
         addSnakesAndLadders();
     }
@@ -52,7 +54,44 @@ public class Board {
         }
     }
 
-    private boolean hasSnakeOrLadder(int index) {
+    public void display() {
+        int tempCellCount = cellCount;
+        int index;
+        for (int row = 0; row < dimension; row++) {
+            // Print left to right if even row, right to left if odd
+            if (row % 2 == 0) {
+                for (int col = 0; col < dimension; col++) {
+                    index = tempCellCount;
+
+                    System.out.printf("%4d", tempCellCount);
+
+                    if (hasSnakeOrLadder(index)) {
+                        BoardEntity entity = boardEntityMap.get(index);
+                        entity.printEntity();
+                    }
+
+                    tempCellCount-=1;
+                }
+            } else {
+                int temp = tempCellCount - dimension+ 1;
+                for (int col = 0; col < dimension; col++) {
+
+                    System.out.printf("%4d", temp);
+
+                    if (hasSnakeOrLadder(temp)) {
+                        BoardEntity entity = boardEntityMap.get(temp);
+                        entity.printEntity();
+                    }
+
+                    temp+=1;
+                }
+                tempCellCount -= dimension;
+            }
+            System.out.println(); // New line for each row
+        }
+    }
+
+    public boolean hasSnakeOrLadder(int index) {
         return boardEntityMap.containsKey(index);
     }
 
@@ -70,6 +109,14 @@ public class Board {
 
     public void setBoardEntityMap(Map<Integer, BoardEntity> boardEntityMap) {
         this.boardEntityMap = boardEntityMap;
+    }
+
+    public int getCellCount() {
+        return cellCount;
+    }
+
+    public void setCellCount(int cellCount) {
+        this.cellCount = cellCount;
     }
 }
 

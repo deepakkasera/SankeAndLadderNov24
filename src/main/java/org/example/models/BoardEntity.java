@@ -3,11 +3,17 @@ package org.example.models;
 public abstract class BoardEntity {
     private int start;
     private int end;
+    private BoardEntityType boardEntityType;
 
-    public BoardEntity(int start, int end) {
+    public BoardEntity(int start, int end, BoardEntityType boardEntityType) {
         this.start = start;
         this.end = end;
+        this.boardEntityType = boardEntityType;
     }
+
+    public abstract void printMessage();
+
+    public abstract void printEntity();
 
     public int getStart() {
         return start;
@@ -23,5 +29,13 @@ public abstract class BoardEntity {
 
     public void setEnd(int end) {
         this.end = end;
+    }
+
+    public BoardEntityType getBoardEntityType() {
+        return boardEntityType;
+    }
+
+    public void setBoardEntityType(BoardEntityType boardEntityType) {
+        this.boardEntityType = boardEntityType;
     }
 }

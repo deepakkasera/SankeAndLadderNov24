@@ -1,7 +1,7 @@
 package org.example;
 
 public class DiceUtility {
-    public int roll() {
+    public static int roll() {
         int min = 1;
         int max = 6;
 
